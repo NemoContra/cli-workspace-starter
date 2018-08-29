@@ -5,8 +5,8 @@ import {
 } from './flight-booking.actions';
 
 export interface State {
-  flights: Flight[],
-  isFlightsPending: boolean
+  flights: Flight[];
+  isFlightsPending: boolean;
 }
 
 export const initialState: State = {
@@ -40,7 +40,7 @@ export function reducer(state = initialState, action: FlightBookingActions): Sta
       const a = action as FlightUpdateSuccess;
       const newFlight = a.payload.newFlight;
       const newFlights = state.flights
-        .map(f => (f.id == newFlight.id) ? {...newFlight} : f);
+        .map(f => (f.id === newFlight.id) ? {...newFlight} : f);
 
       return {
         ...state,

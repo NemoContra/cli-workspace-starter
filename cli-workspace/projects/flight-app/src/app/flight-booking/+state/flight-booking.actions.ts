@@ -8,7 +8,7 @@ export const FlightBookingActionTypes = {
   UpdateFlight : '[FlightBooking] Update Flight',
   FlightUpdateSuccess : '[FlightBooking] Flight Update Success',
   FlightUpdateError: '[FlightBooking] Flight Update Error'
-}
+};
 
 export class LoadFlights implements Action {
   readonly type = FlightBookingActionTypes.LoadFlights;
@@ -40,4 +40,5 @@ export class FlightUpdateError implements Action {
   constructor(public payload: { error?: any}) {}
 }
 
-export type FlightBookingActions = LoadFlights | FlightsLoaded | FlightsLoadedError | UpdateFlight | FlightUpdateSuccess | FlightUpdateError;
+export type FlightBookingActions = LoadFlights | FlightsLoaded | FlightsLoadedError | UpdateFlight |
+  FlightUpdateSuccess | FlightUpdateError;
