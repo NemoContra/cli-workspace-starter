@@ -1,6 +1,6 @@
 import { HttpClientModule } from '@angular/common/http';
 
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { FlightApiModule } from '@flight-workspace/flight-api';
@@ -13,6 +13,7 @@ import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SharedModule } from './shared/shared.module';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { GlobalErrorHandlerService } from './global-error-handler.service';
 
 
 @NgModule({
@@ -30,9 +31,11 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     SidebarComponent,
     NavbarComponent,
     HomeComponent,
-    BasketComponent
+    BasketComponent,
   ],
-  providers: [],
+  providers: [
+    {provide: ErrorHandler, useClass: GlobalErrorHandlerService}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
