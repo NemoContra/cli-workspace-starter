@@ -1,25 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Flight, FlightService } from '@flight-workspace/flight-api';
 import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
 import * as fromFlightBooking from '../+state/flight-booking.selectors'
-import { FlightsLoadedSuccess } from '../+state/flight-booking.actions';
+import { LoadFlights } from '../+state/flight-booking.actions';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'fl-app-flight-search',
   templateUrl: './flight-search.component.html',
   styleUrls: ['./flight-search.component.css']
 })
-export class FlightSearchComponent implements OnInit {
+export class FlightSearchComponent implements OnInit, OnDestroy {
   from = 'Hamburg'; // in Germany
   to = 'Graz'; // in Austria
   urgent = false;
 
-  flights$: Observable<Flight[]>;
-
-  get flights(): Flight[] {
-    return this.flightService.flights;
-  }
+  flightSubscription: Subscription;
+  flights: Flight[];
 
   // "shopping basket" with selected flights
   basket: { [key: number]: boolean } = {
@@ -29,23 +26,23 @@ export class FlightSearchComponent implements OnInit {
 
   constructor(private flightService: FlightService,
               private store: Store<any>) {
-    this.flights$ = this.store.pipe(select(fromFlightBooking.getFlights));
+    this.store.pipe(select(fromFlightBooking.getFlights)).subscribe((flights: Flight[]) => {
+      this.flights = flights;
+    });
   }
 
   ngOnInit() {
   }
 
+  ngOnDestroy() {
+    this.flightSubscription.unsubscribe();
+  }
+
   search(): void {
     if (!this.from || !this.to) return;
 
-    this.flightService
-      .find(this.from, this.to, this.urgent)
-      .subscribe(
-        flights => {
-          const action = new FlightsLoadedSuccess({flights: flights});
-          this.store.dispatch(action);
-        }
-      );
+    const action = new LoadFlights({from: this.from, to: this.to});
+    this.store.dispatch(action);
   }
 
   delay(): void {

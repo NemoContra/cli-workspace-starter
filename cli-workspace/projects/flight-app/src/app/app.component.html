@@ -5,6 +5,8 @@
   <div class="main-panel">
     <fl-app-navbar></fl-app-navbar>
     <div class="content">
+      count$: {{count$ | async}}
+      <button (click)="countUp()" class="btn btn-default">countUp</button>
 
       <router-outlet></router-outlet>
 

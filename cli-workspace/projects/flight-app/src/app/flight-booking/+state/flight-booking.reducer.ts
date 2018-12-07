@@ -11,11 +11,11 @@ export const initialState: State = {
 
 export function reducer(state = initialState, action: FlightBookingActions): State {
   switch (action.type) {
-
-    case FlightBookingActionTypes.LoadFlights:
-      return state;
-
-
+    case FlightBookingActionTypes.FlightsLoadedSuccess:
+      return {
+        ...state,
+        flights: action.payload.flights
+      };
     default:
       return state;
   }

@@ -13,6 +13,10 @@ import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SharedModule } from './shared/shared.module';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { StoreModule } from '@ngrx/store';
+import { reducers, metaReducers } from './+state';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { AppEffects } from './+state/app.effects';
 
@@ -26,7 +30,9 @@ import { AppEffects } from './+state/app.effects';
     FlightApiModule.forRoot(),
     SharedModule.forRoot(),
     RouterModule.forRoot([...APP_ROUTES], { ...APP_EXTRA_OPTIONS }),
-    EffectsModule.forRoot([AppEffects])
+    StoreModule.forRoot(reducers, { metaReducers }),
+    EffectsModule.forRoot([AppEffects]),
+    !environment.production ? StoreDevtoolsModule.instrument() : []
   ],
   declarations: [
     AppComponent,
