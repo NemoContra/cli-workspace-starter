@@ -14,6 +14,9 @@ export const APP_ROUTES: Routes = [{
   component: BasketComponent,
   outlet: 'aux'
 }, {
+  path: 'flight-booking',
+  loadChildren: './flight-booking/flight-booking.module#FlightBookingModule'
+}, {
   path: '**',
   redirectTo: 'home'
 }];
