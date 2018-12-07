@@ -13,6 +13,7 @@ import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SharedModule } from './shared/shared.module';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { OAuthModule } from 'angular-oauth2-oidc';
 
 
 @NgModule({
@@ -20,7 +21,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     BrowserModule,
     HttpClientModule,
     FlightBookingModule,
-
+    OAuthModule.forRoot(),
     FlightApiModule.forRoot(),
     SharedModule.forRoot(),
     RouterModule.forRoot([...APP_ROUTES], { ...APP_EXTRA_OPTIONS })
