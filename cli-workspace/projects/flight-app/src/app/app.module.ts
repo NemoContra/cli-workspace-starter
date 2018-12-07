@@ -13,6 +13,8 @@ import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SharedModule } from './shared/shared.module';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { EffectsModule } from '@ngrx/effects';
+import { AppEffects } from './+state/app.effects';
 
 
 @NgModule({
@@ -23,7 +25,8 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 
     FlightApiModule.forRoot(),
     SharedModule.forRoot(),
-    RouterModule.forRoot([...APP_ROUTES], { ...APP_EXTRA_OPTIONS })
+    RouterModule.forRoot([...APP_ROUTES], { ...APP_EXTRA_OPTIONS }),
+    EffectsModule.forRoot([AppEffects])
   ],
   declarations: [
     AppComponent,
