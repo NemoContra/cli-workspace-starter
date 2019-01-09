@@ -3,143 +3,11 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "flight-admin": {
-      "root": "projects/flight-admin/",
-      "sourceRoot": "projects/flight-admin/src",
-      "projectType": "application",
-      "prefix": "fl-admin",
-      "schematics": {},
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:browser",
-          "options": {
-            "outputPath": "dist/flight-admin",
-            "index": "projects/flight-admin/src/index.html",
-            "main": "projects/flight-admin/src/main.ts",
-            "polyfills": "projects/flight-admin/src/polyfills.ts",
-            "tsConfig": "projects/flight-admin/tsconfig.app.json",
-            "assets": [
-              "projects/flight-admin/src/favicon.ico",
-              "projects/flight-admin/src/assets"
-            ],
-            "styles": [
-              "projects/flight-admin/src/styles.css"
-            ],
-            "scripts": []
-          },
-          "configurations": {
-            "production": {
-              "fileReplacements": [
-                {
-                  "replace": "projects/flight-admin/src/environments/environment.ts",
-                  "with": "projects/flight-admin/src/environments/environment.prod.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "extractCss": true,
-              "namedChunks": false,
-              "aot": true,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true
-            }
-          }
-        },
-        "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "browserTarget": "flight-admin:build"
-          },
-          "configurations": {
-            "production": {
-              "browserTarget": "flight-admin:build:production"
-            }
-          }
-        },
-        "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "browserTarget": "flight-admin:build"
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/flight-admin/src/test.ts",
-            "polyfills": "projects/flight-admin/src/polyfills.ts",
-            "tsConfig": "projects/flight-admin/tsconfig.spec.json",
-            "karmaConfig": "projects/flight-admin/karma.conf.js",
-            "styles": [
-              "projects/flight-admin/src/styles.css"
-            ],
-            "scripts": [],
-            "assets": [
-              "projects/flight-admin/src/favicon.ico",
-              "projects/flight-admin/src/assets"
-            ]
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/flight-admin/tsconfig.app.json",
-              "projects/flight-admin/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        }
-      }
-    },
-    "flight-api": {
-      "root": "projects/flight-api",
-      "sourceRoot": "projects/flight-api/src",
-      "projectType": "library",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
-          "options": {
-            "tsConfig": "projects/flight-api/tsconfig.lib.json",
-            "project": "projects/flight-api/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "project": "projects/flight-api/ng-package.prod.json"
-            }
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/flight-api/src/test.ts",
-            "tsConfig": "projects/flight-api/tsconfig.spec.json",
-            "karmaConfig": "projects/flight-api/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/flight-api/tsconfig.lib.json",
-              "projects/flight-api/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        }
-      }
-    },
     "flight-app": {
       "root": "projects/flight-app/",
       "sourceRoot": "projects/flight-app/src",
       "projectType": "application",
-      "prefix": "fl-app",
+      "prefix": "app",
       "schematics": {},
       "architect": {
         "build": {
@@ -157,8 +25,7 @@
             "styles": [
               "projects/flight-app/src/styles.css"
             ],
-            "scripts": [],
-            "preserveSymlinks": true
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -176,7 +43,14 @@
               "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
-              "buildOptimizer": true
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
             }
           }
         },
