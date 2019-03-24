@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'fl-app-navbar',
@@ -8,11 +9,11 @@ export class NavbarComponent {
 
   private sidebarVisible = false;
 
-  constructor() {
+  constructor(@Inject(DOCUMENT) private document: Document) {
   }
 
   sidebarToggle() {
-    const body = document.getElementsByTagName('body')[0];
+    const body: HTMLBodyElement = this.document.querySelector('body');
 
     if (this.sidebarVisible === false) {
       body.classList.add('nav-open');
