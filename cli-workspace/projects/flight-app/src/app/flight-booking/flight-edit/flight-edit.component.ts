@@ -31,7 +31,7 @@ export class FlightEditComponent implements OnInit, CanDeactivateComponent {
   }
 
   canDeactivate(): Observable<boolean> {
-    return Observable.create((sender: Observer<boolean>) => {
+    return new Observable((sender: Observer<boolean>) => {
       this.sender = sender;
       this.showWarning = true;
     });
