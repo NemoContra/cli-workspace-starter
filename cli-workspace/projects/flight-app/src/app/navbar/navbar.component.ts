@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, Renderer2 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 
 @Component({
@@ -9,18 +9,17 @@ export class NavbarComponent {
 
   private sidebarVisible = false;
 
-  constructor(@Inject(DOCUMENT) private document: Document) {
+  constructor(@Inject(DOCUMENT) private document: Document,
+              private renderer: Renderer2) {
   }
 
   sidebarToggle() {
-    const body: HTMLBodyElement = this.document.querySelector('body');
-
     if (this.sidebarVisible === false) {
-      body.classList.add('nav-open');
+      this.renderer.addClass(this.document.body, 'nav-open');
       this.sidebarVisible = true;
     } else {
       this.sidebarVisible = false;
-      body.classList.remove('nav-open');
+      this.renderer.removeClass(this.document.body, 'nav-open');
     }
   }
 }
