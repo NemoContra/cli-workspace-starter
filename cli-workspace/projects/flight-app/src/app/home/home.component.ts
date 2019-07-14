@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { pluck } from 'rxjs/operators';
+import { AuthService } from '../shared/auth/auth.service';
 
 @Component({
   selector: 'fl-app-home',
@@ -9,29 +10,24 @@ import { pluck } from 'rxjs/operators';
   encapsulation: ViewEncapsulation.None
 })
 export class HomeComponent implements OnInit {
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private authService: AuthService) {
   }
 
   needsLogin: boolean;
   _userName = '';
 
   ngOnInit() {
-    this.route.params
-      .pipe(pluck('needsLogin'))
-      .subscribe(
-        (v: boolean) => this.needsLogin = v
-      );
   }
 
-  get userName(): string {
-    return this._userName;
+  get userName() {
+    return this.authService.userName;
   }
 
-  login(): void {
-    this._userName = 'Login will be implemented in another exercise!';
+  login() {
+    this.authService.login();
   }
 
-  logout(): void {
-    this._userName = '';
+  logout() {
+    this.authService.logout();
   }
 }
