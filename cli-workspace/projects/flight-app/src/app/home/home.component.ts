@@ -1,6 +1,11 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { pluck } from 'rxjs/operators';
+import { AppState } from '../+state/app.reducer';
+import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { selectCount } from '../+state/app.selectors';
+import { increment } from '../+state/app.actions';
 
 @Component({
   selector: 'fl-app-home',
@@ -9,8 +14,11 @@ import { pluck } from 'rxjs/operators';
   encapsulation: ViewEncapsulation.None
 })
 export class HomeComponent implements OnInit {
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private store: Store<AppState>) {
+    this.count$ = this.store.pipe(select(selectCount));
   }
+
+  count$: Observable<number>;
 
   needsLogin: boolean;
   _userName = '';
@@ -33,5 +41,9 @@ export class HomeComponent implements OnInit {
 
   logout(): void {
     this._userName = '';
+  }
+
+  increment(): void {
+    this.store.dispatch(increment());
   }
 }

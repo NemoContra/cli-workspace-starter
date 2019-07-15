@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {Flight, FlightService} from '@flight-workspace/flight-api';
+import { FlightState } from '../+state/flight.reducer';
+import { select, Store } from '@ngrx/store';
+import { selectFlights } from '../+state/flight.selectors';
+import { Observable } from 'rxjs';
+import { flightSearch } from '../+state/flight.actions';
 
 @Component({
   selector: 'fl-app-flight-search',
@@ -11,8 +16,8 @@ export class FlightSearchComponent implements OnInit {
   to = 'Graz'; // in Austria
   urgent = false;
 
-  get flights(): Flight[] {
-    return this.flightService.flights;
+  get flights$(): Observable<Flight[]> {
+    return this.store.pipe(select(selectFlights));
   }
 
   // "shopping basket" with selected flights
@@ -22,7 +27,8 @@ export class FlightSearchComponent implements OnInit {
   };
 
   constructor(
-    private flightService: FlightService) {
+    private flightService: FlightService,
+    private store: Store<FlightState>) {
   }
 
   ngOnInit() {
@@ -33,7 +39,7 @@ export class FlightSearchComponent implements OnInit {
       return;
     }
 
-    this.flightService.load(this.from, this.to, this.urgent);
+    this.store.dispatch(flightSearch({from: this.from, to: this.to}));
   }
 
   delay(): void {

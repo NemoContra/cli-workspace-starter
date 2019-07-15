@@ -14,6 +14,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { SharedModule } from './shared/shared.module';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { StoreModule } from '@ngrx/store';
+import { appReducer } from './+state/app.reducer';
 import { EffectsModule } from '@ngrx/effects';
 
 
@@ -26,7 +27,7 @@ import { EffectsModule } from '@ngrx/effects';
     FlightApiModule.forRoot(),
     SharedModule.forRoot(),
     RouterModule.forRoot([...APP_ROUTES], { ...APP_EXTRA_OPTIONS }),
-    StoreModule.forRoot({count: 0}),
+    StoreModule.forRoot({app: appReducer}),
     EffectsModule.forRoot([])
   ],
   declarations: [
